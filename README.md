@@ -1,4 +1,6 @@
 # React + Vite
+#Node.js 
+#Database using MongoDB
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
