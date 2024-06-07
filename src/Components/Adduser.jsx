@@ -19,7 +19,7 @@ const newCoffee={name,chef,supplier,taste,category,details,photo}
 
 console.log(newCoffee);
 
-fetch('https://coffee-store-server-hy1o0jb9n-amithasanfaysals-projects.vercel.app/coffee',{
+fetch('http://localhost:5000/coffee',{
     method:'POST',
     headers:{
         'content-type':'application/json'

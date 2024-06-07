@@ -22,7 +22,7 @@ const password=e.target.password.value
     const createdAt=result.user.metadata.creationTime;
     const user={email,createdAt:createdAt};
 
-    fetch('https://coffee-store-server-hy1o0jb9n-amithasanfaysals-projects.vercel.app/user',{
+    fetch('http://localhost:5000/user',{
         method:'POST',
         headers:{
             'content-type':'application/json'

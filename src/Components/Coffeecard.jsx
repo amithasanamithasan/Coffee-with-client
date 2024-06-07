@@ -39,7 +39,7 @@ const Coffeecard = ({coffee ,coffeess,setCoffess}) => {
         }
       });
 
-      fetch(`https://coffee-store-server-hy1o0jb9n-amithasanfaysals-projects.vercel.app/coffee/${_id}`,{
+      fetch(`http://localhost:5000/coffee/${_id}`,{
 
 method:'DELETE'
 

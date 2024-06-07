@@ -30,7 +30,7 @@ const Users = () => {
         });
 
         try {
-            const response = await fetch(`https://coffee-store-server-hy1o0jb9n-amithasanfaysals-projects.vercel.app/user/${id}`, {
+            const response = await fetch(`http://localhost:5000/user/${id}`, {
                 method: 'DELETE'
             });
 
