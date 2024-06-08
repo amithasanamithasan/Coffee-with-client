@@ -1,7 +1,10 @@
 
+import axios from "axios";
 import Hader from "./Hader";
+import Swal from "sweetalert2";
+// import { data } from "autoprefixer";
 
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 
 const Adduser = () => {
@@ -19,34 +22,55 @@ const newCoffee={name,chef,supplier,taste,category,details,photo}
 
 console.log(newCoffee);
 
-fetch('http://localhost:5000/coffee',{
-    method:'POST',
-    headers:{
-        'content-type':'application/json'
-    },
-    body:JSON.stringify(newCoffee)
+axios.post('http://localhost:5000/coffee',newCoffee)
+.then(data=>{
+  console.log(data.data)
+  
+  Swal.fire({
+    title: "Do you want to save the changes?",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Save",
+    denyButtonText: `Don't save`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire("Saved!", "", "success");
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+    }
+  });
+  
 })
 
-.then(res=>res.json())
-.then(data=> {
-    console.log(data);
-    if(data.insertedId){
-        Swal.fire({
-            title: "Do you want to save the changes?",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Save",
-            denyButtonText: `Don't save`
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              Swal.fire("Saved!", "", "success");
-            } else if (result.isDenied) {
-              Swal.fire("Changes are not saved", "", "info");
-            }
-          });
-    }
-})
+// fetch('http://localhost:5000/coffee',{
+//     method:'POST',
+//     headers:{
+//         'content-type':'application/json'
+//     },
+//     body:JSON.stringify(newCoffee)
+// })
+
+// .then(res=>res.json())
+// .then(data=> {
+//     console.log(data);
+//     if(data.insertedId){
+//         Swal.fire({
+//             title: "Do you want to save the changes?",
+//             showDenyButton: true,
+//             showCancelButton: true,
+//             confirmButtonText: "Save",
+//             denyButtonText: `Don't save`
+//           }).then((result) => {
+//             /* Read more about isConfirmed, isDenied below */
+//             if (result.isConfirmed) {
+//               Swal.fire("Saved!", "", "success");
+//             } else if (result.isDenied) {
+//               Swal.fire("Changes are not saved", "", "info");
+//             }
+//           });
+//     }
+// })
 
 
   }

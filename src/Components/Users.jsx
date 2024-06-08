@@ -1,4 +1,5 @@
 
+import axios from "axios";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -11,6 +12,9 @@ const Users = () => {
 
     const handleAuthUserDelete = async (id) => {
         console.log('deleted', id);
+
+
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -19,47 +23,49 @@ const Users = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Swal.fire({
-                //     title: "Deleted!",
-                //     text: "Your file has been deleted.",
-                //     icon: "success"
-                // });
-            }
-        });
+        })
+     
 
-        try {
-            const response = await fetch(`http://localhost:5000/user/${id}`, {
-                method: 'DELETE'
-            });
+        
+axios.delete(`http://localhost:5000/user/${id}`,users)
+.then(data=>{
+    console.log(data.data)
+    const userRemaining = users.filter(user => user._id !== id);
+             setUsers(userRemaining);
+         
+})
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+        // try {
+        //     const response = await fetch(`http://localhost:5000/user/${id}`, {
+        //         method: 'DELETE'
+        //     });
 
-            const data = await response.json();
-            console.log(data);
-            if (data.deleteCount > 0) {
-                console.log('delete successfully');
-                // Remove the user from the user interface (UI)
-                const userRemaining = users.filter(user => user._id !== id);
-                setUsers(userRemaining);
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            // Optionally show an alert or notification to the user about the failure
-            Swal.fire({
-                title: "Error!",
-                text: "Failed to delete user. Please try again later.",
-                icon: "error"
-            });
-        }
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+
+        //     const data = await response.json();
+        //     console.log(data);
+        //     if (data.deleteCount > 0) {
+        //         console.log('delete successfully');
+        //         // Remove the user from the user interface (UI)
+        //         const userRemaining = users.filter(user => user._id !== id);
+        //         setUsers(userRemaining);
+        //         Swal.fire({
+        //             title: "Deleted!",
+        //             text: "Your file has been deleted.",
+        //             icon: "success"
+        //         });
+        //     }
+        // } catch (error) {
+        //     console.error('Error:', error);
+        //     // Optionally show an alert or notification to the user about the failure
+        //     Swal.fire({
+        //         title: "Error!",
+        //         text: "Failed to delete user. Please try again later.",
+        //         icon: "error"
+        //     });
+        // }
     };
     return (
        

@@ -1,6 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import Hader from "./Hader";
+import axios from "axios";
+import { data } from "autoprefixer";
 import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const Update = ( ) => {
     const coffee=useLoaderData()
@@ -21,34 +24,47 @@ const Update = ( ) => {
      
      console.log(UpdateCoffee);
      
-     fetch(`http://localhost:5000/coffee/${_id}`,{
-         method:'PUT',
-         headers:{
-             'content-type':'application/json'
-         },
-         body:JSON.stringify(UpdateCoffee)
+
+     axios.put(`http://localhost:5000/coffee/${_id}`,UpdateCoffee)
+     .then(data=>{
+      console.log(data.data)
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your Coffee  has been Updated",
+        showConfirmButton: false,
+        timer: 1500
+      });
      })
      
-     .then(res=>res.json())
-     .then(data=> {
-         console.log(data);
-         if(data.modifiedCount>0){
-             Swal.fire({
-                 title: "Do you want to save the changes?",
-                 showDenyButton: true,
-                 showCancelButton: true,
-                 confirmButtonText: "Save",
-                 denyButtonText: `Don't save`
-               }).then((result) => {
-                 /* Read more about isConfirmed, isDenied below */
-                 if (result.isConfirmed) {
-                   Swal.fire("Saved!", "Coffee Updated Successfully", "success");
-                 } else if (result.isDenied) {
-                   Swal.fire("Changes are not saved", "", "info");
-                 }
-               });
-         }
-     })
+    //  fetch(`http://localhost:5000/coffee/${_id}`,{
+    //      method:'PUT',
+    //      headers:{
+    //          'content-type':'application/json'
+    //      },
+    //      body:JSON.stringify(UpdateCoffee)
+    //  })
+     
+    //  .then(res=>res.json())
+    //  .then(data=> {
+    //      console.log(data);
+    //      if(data.modifiedCount>0){
+    //          Swal.fire({
+    //              title: "Do you want to save the changes?",
+    //              showDenyButton: true,
+    //              showCancelButton: true,
+    //              confirmButtonText: "Save",
+    //              denyButtonText: `Don't save`
+    //            }).then((result) => {
+    //              /* Read more about isConfirmed, isDenied below */
+    //              if (result.isConfirmed) {
+    //                Swal.fire("Saved!", "Coffee Updated Successfully", "success");
+    //              } else if (result.isDenied) {
+    //                Swal.fire("Changes are not saved", "", "info");
+    //              }
+    //            });
+    //      }
+    //  })
      
      
        }
