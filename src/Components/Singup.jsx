@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { AuthContext } from "./Providers/AuthProviders";
 
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
+import axios from "axios";
+// import { data } from "autoprefixer";
 
 
 const Singup = () => {
@@ -22,23 +24,28 @@ const password=e.target.password.value
     const createdAt=result.user.metadata.creationTime;
     const user={email,createdAt:createdAt};
 
-    fetch('http://localhost:5000/user',{
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body:JSON.stringify(user)
-    })
-    .then(res=>res.json())
+    axios.post('http://localhost:5000/user',user)
     .then(data=>{
-        console.log(data)
-        if(data.insertedId)
-            Swal.fire({
-                title: " User Sing_Up successfully!",
-                text: "You clicked the button!",
-                icon: " User Sing_Up successfully"
-              });
+      console.log(data.data)
     })
+
+    // fetch('http://localhost:5000/user',{
+    //     method:'POST',
+    //     headers:{
+    //         'content-type':'application/json'
+    //     },
+    //     body:JSON.stringify(user)
+    // })
+    // .then(res=>res.json())
+    // .then(data=>{
+    //     console.log(data)
+    //     if(data.insertedId)
+    //         Swal.fire({
+    //             title: " User Sing_Up successfully!",
+    //             text: "You clicked the button!",
+    //             icon: " User Sing_Up successfully"
+    //           });
+    // })
 
  })
  .catch(error=>{

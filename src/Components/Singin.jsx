@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "./Providers/AuthProviders";
+import axios from "axios";
 
 
 const Singin = () => {
@@ -18,17 +19,22 @@ const Singin = () => {
         email,
         lastLoggedAt:result.user.metadata.lastSignInTime
     }
-    fetch('http://localhost:5000/user',{
-        method:'PATCH',
-        headers:{
-            'content-type':'application/json'
-        },
-        body:JSON.stringify(user )
-    })
-    .then(res=>res.json())
+
+    axios.patch('http://localhost:5000/user',user)
     .then(data=>{
-        console.log(data);
+      console.log(data.data)
     })
+    // fetch('http://localhost:5000/user',{
+    //     method:'PATCH',
+    //     headers:{
+    //         'content-type':'application/json'
+    //     },
+    //     body:JSON.stringify(user )
+    // })
+    // .then(res=>res.json())
+    // .then(data=>{
+    //     console.log(data);
+    // })
 })
 .catch(error=>{
     console.log(error)
